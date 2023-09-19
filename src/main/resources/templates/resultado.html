@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@100&display=swap">
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(120deg, #FFF8DC, #008B8B);
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container01 {
+            background-color: #343439;
+            padding: 30px 40px;
+            min-width: 250px;
+            color: #fff;
+            border-radius: 12px;
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.389);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            padding: 30px 40px;
+            min-width: 250px;
+            color: #fff;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .button-like {
+            background: linear-gradient(120deg, #FFF8DC, #008B8B);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            width: 300px;
+            margin: 10px 0px;
+            color: #fff;
+            font-weight: bolder;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container01">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="container">
+                <h2>Resultado do sorteio</h2>
+                <div id="result">
+                    <span th:each="numero, iterStat : ${sorteio}">
+                        <span th:text="${numero}"></span>
+                        <span th:if="${!iterStat.last}">,</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="container">
+                <h2>Informações do sorteio</h2>
+                <div id="info">
+                    <span th:text="${quantidade} + ' números sorteados entre ' + ${minimo} + ' e ' + ${maximo}"></span>
+                </div>
+            </div>
+
+            <div class="container">
+                <h2>Horário do sorteio</h2>
+                <div id="hora">
+                    <div id="horario-sorteio"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cos-sm-12 text-center">
+        <a th:href="@{/}" id="generate" class="button-like">Sortear Novamente</a>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    let dataHoraSorteio = new Date();
+    let dataFormatada = dataHoraSorteio.toLocaleDateString();
+    let horaFormatada = dataHoraSorteio.toLocaleTimeString();
+    $("#horario-sorteio").html("Sorteio realizado em " + dataFormatada + " às " + horaFormatada);
+</script>
+</body>
+</html>
